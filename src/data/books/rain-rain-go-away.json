@@ -1,0 +1,305 @@
+{
+  "id": "rain-rain-go-away",
+  "title": "Rain Rain Go Away",
+  "author": "Traditional rhyme · Forest English adaptation",
+  "cover": "☔",
+  "theme": "rain-weather-and-daily-actions",
+  "level": "starter",
+  "suggestedDays": 4,
+  "description": "在原创雨天场景中学习天气、衣物、动作和 Go away / Come again 句型。",
+  "pages": [
+    {
+      "id": "rr-page-1",
+      "image": "☁️|🌧️|🏠",
+      "text": "Rain is falling on the little house.",
+      "optionalTranslation": "雨落在小房子上。",
+      "audio": "",
+      "focusWords": ["rain", "falling", "house"],
+      "focusPattern": "rr-weather",
+      "questions": [
+        {
+          "id": "rr-p1-q1",
+          "prompt": "What is falling?",
+          "type": "what",
+          "answers": ["rain", "The rain is falling"]
+        }
+      ]
+    },
+    {
+      "id": "rr-page-2",
+      "image": "👧|☔|🌧️",
+      "text": "Mia has a yellow umbrella.",
+      "optionalTranslation": "Mia 有一把黄色的雨伞。",
+      "audio": "",
+      "focusWords": ["umbrella"],
+      "focusPattern": "rr-has",
+      "questions": [
+        {
+          "id": "rr-p2-q1",
+          "prompt": "What color is the umbrella?",
+          "type": "word",
+          "answers": ["yellow"]
+        }
+      ]
+    },
+    {
+      "id": "rr-page-3",
+      "image": "👢|💦|🐸",
+      "text": "The little frog can jump in a puddle.",
+      "optionalTranslation": "小青蛙会在水坑里跳。",
+      "audio": "",
+      "focusWords": ["puddle"],
+      "focusPattern": "rr-can",
+      "questions": [
+        {
+          "id": "rr-p3-q1",
+          "prompt": "Where can the frog jump?",
+          "type": "where",
+          "answers": ["in a puddle", "puddle"]
+        }
+      ]
+    },
+    {
+      "id": "rr-page-4",
+      "image": "🌦️|👧|🌈",
+      "text": "Rain, go away and come again another day.",
+      "optionalTranslation": "雨呀，先走开，改天再来。",
+      "audio": "",
+      "focusWords": ["away", "again", "day"],
+      "focusPattern": "rr-request",
+      "questions": [
+        {
+          "id": "rr-p4-q1",
+          "prompt": "When can the rain come again?",
+          "type": "short-answer",
+          "answers": ["another day"]
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "rain",
+      "word": "rain",
+      "meaning": "雨",
+      "category": "weather",
+      "image": "🌧️",
+      "audio": "",
+      "phonics": "r-ai-n",
+      "syllables": ["rain"],
+      "exampleSentences": ["Rain is falling on the little house.", "I can hear the rain."],
+      "distractors": ["sun", "cloud", "wind"],
+      "isCore": true
+    },
+    {
+      "id": "rainy",
+      "word": "rainy",
+      "meaning": "下雨的",
+      "category": "weather",
+      "image": "🌦️",
+      "audio": "",
+      "phonics": "rain-y",
+      "syllables": ["rain", "y"],
+      "exampleSentences": ["It is a rainy day."],
+      "distractors": ["sunny", "windy", "cloudy"],
+      "isCore": true
+    },
+    {
+      "id": "umbrella",
+      "word": "umbrella",
+      "meaning": "雨伞",
+      "category": "object",
+      "image": "☔",
+      "audio": "",
+      "phonics": "um-brel-la",
+      "syllables": ["um", "brel", "la"],
+      "exampleSentences": ["Mia has a yellow umbrella."],
+      "distractors": ["boots", "house", "puddle"],
+      "isCore": true
+    },
+    {
+      "id": "puddle",
+      "word": "puddle",
+      "meaning": "水坑",
+      "category": "place",
+      "image": "💦",
+      "audio": "",
+      "phonics": "pud-dle",
+      "syllables": ["pud", "dle"],
+      "exampleSentences": ["The frog can jump in a puddle."],
+      "distractors": ["pond", "house", "cloud"],
+      "isCore": true
+    },
+    {
+      "id": "falling",
+      "word": "falling",
+      "meaning": "正在落下",
+      "category": "action",
+      "image": "⬇️",
+      "audio": "",
+      "phonics": "fall-ing",
+      "syllables": ["fall", "ing"],
+      "exampleSentences": ["Rain is falling on the house."],
+      "distractors": ["jumping", "playing", "looking"],
+      "isCore": true
+    },
+    {
+      "id": "away",
+      "word": "away",
+      "meaning": "离开",
+      "category": "action",
+      "image": "➡️",
+      "audio": "",
+      "phonics": "a-way",
+      "syllables": ["a", "way"],
+      "exampleSentences": ["Rain, go away."],
+      "distractors": ["again", "here", "near"],
+      "isCore": true
+    },
+    {
+      "id": "again",
+      "word": "again",
+      "meaning": "再一次",
+      "category": "time",
+      "image": "🔁",
+      "audio": "",
+      "phonics": "a-gain",
+      "syllables": ["a", "gain"],
+      "exampleSentences": ["Come again another day."],
+      "distractors": ["away", "today", "now"],
+      "isCore": true
+    },
+    {
+      "id": "house",
+      "word": "house",
+      "meaning": "房子",
+      "category": "place",
+      "image": "🏠",
+      "audio": "",
+      "phonics": "h-ou-se",
+      "syllables": ["house"],
+      "exampleSentences": ["Rain is falling on the little house."],
+      "distractors": ["puddle", "umbrella", "cloud"],
+      "isCore": false
+    },
+    {
+      "id": "day",
+      "word": "day",
+      "meaning": "一天",
+      "category": "time",
+      "image": "📅",
+      "audio": "",
+      "phonics": "d-ay",
+      "syllables": ["day"],
+      "exampleSentences": ["Come again another day."],
+      "distractors": ["night", "rain", "away"],
+      "isCore": false
+    }
+  ],
+  "sentencePatterns": [
+    {
+      "id": "rr-weather",
+      "pattern": "It is a {weather} day.",
+      "slots": ["weather"],
+      "replacements": {
+        "weather": ["rainy", "sunny", "windy", "cloudy"]
+      },
+      "questionForms": ["What is the weather like?", "Is it a {weather} day?"],
+      "answerForms": ["It is {weather}.", "Yes, it is."],
+      "levels": ["It is {weather}.", "It is a {weather} day.", "It is a {weather} day near the little house."],
+      "examples": ["It is a rainy day."]
+    },
+    {
+      "id": "rr-has",
+      "pattern": "Mia has a {color} {object}.",
+      "slots": ["color", "object"],
+      "replacements": {
+        "color": ["yellow", "red", "green", "purple"],
+        "object": ["umbrella", "coat", "hat", "bag"]
+      },
+      "questionForms": ["What does Mia have?", "What color is the {object}?"],
+      "answerForms": ["Mia has a {color} {object}.", "It is {color}."],
+      "levels": ["Mia has an {object}.", "Mia has a {color} {object}.", "Mia has two {color} {object}s."],
+      "examples": ["Mia has a yellow umbrella."]
+    },
+    {
+      "id": "rr-can",
+      "pattern": "The {animal} can {action} in the {place}.",
+      "slots": ["animal", "action", "place"],
+      "replacements": {
+        "animal": ["frog", "duck", "child", "dog"],
+        "action": ["jump", "walk", "play", "splash"],
+        "place": ["puddle", "rain", "garden"]
+      },
+      "questionForms": ["What can the {animal} do?", "Where can the {animal} {action}?"],
+      "answerForms": ["The {animal} can {action}.", "It can {action} in the {place}."],
+      "levels": ["The {animal} can {action}.", "The little {animal} can {action} in the {place}."],
+      "examples": ["The frog can jump in the puddle."]
+    },
+    {
+      "id": "rr-request",
+      "pattern": "{weather}, go {direction}.",
+      "slots": ["weather", "direction"],
+      "replacements": {
+        "weather": ["Rain", "Clouds", "Wind"],
+        "direction": ["away", "outside"]
+      },
+      "questionForms": ["Can the {weather} go {direction}?"],
+      "answerForms": ["Please go {direction}.", "Come again another day."],
+      "levels": ["Go {direction}.", "{weather}, go {direction}.", "{weather}, please go {direction} and come again another day."],
+      "examples": ["Rain, go away."]
+    }
+  ],
+  "comprehensionQuestions": [
+    {
+      "id": "rr-c1",
+      "type": "picture",
+      "prompt": "What does Mia hold?",
+      "answers": ["umbrella"],
+      "choices": ["umbrella", "puddle", "house", "rain"],
+      "pageId": "rr-page-2"
+    },
+    {
+      "id": "rr-c2",
+      "type": "sequence",
+      "prompt": "Put the rainy-day story in order.",
+      "answers": ["rain", "umbrella", "puddle", "away"],
+      "choices": ["puddle", "away", "rain", "umbrella"]
+    }
+  ],
+  "readingExtensions": [
+    {
+      "id": "rr-read-1",
+      "title": "A Rainy Morning",
+      "sentences": [
+        "It is a rainy morning.",
+        "Mia has a yellow umbrella.",
+        "A little frog jumps in a puddle.",
+        "Mia asks the rain to come again another day."
+      ],
+      "questions": [
+        {
+          "id": "rr-rq1",
+          "type": "what",
+          "prompt": "What color is Mia's umbrella?",
+          "answers": ["yellow"]
+        }
+      ]
+    }
+  ],
+  "phonicsTargets": ["r", "ai", "ay", "um", "p", "ddle", "ing"],
+  "exercises": [
+    {
+      "id": "rr-ex-vocab",
+      "type": "vocabulary-cycle",
+      "title": "8-step rainy-day word cycle",
+      "targetIds": ["rain", "rainy", "umbrella", "puddle", "falling", "away", "again"]
+    }
+  ],
+  "rewards": {
+    "stars": 10,
+    "badge": "Rainy Day Singer",
+    "message": "You can listen, read and talk about a rainy day!"
+  },
+  "publishingStatus": "published"
+}

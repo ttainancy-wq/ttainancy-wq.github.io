@@ -1,0 +1,325 @@
+{
+  "id": "brown-bear",
+  "title": "Brown Bear",
+  "author": "Forest English Studio",
+  "cover": "🐻",
+  "theme": "colors-and-animals",
+  "level": "starter",
+  "suggestedDays": 4,
+  "description": "在原创森林场景中学习颜色、动物和 I see… 句型。",
+  "pages": [
+    {
+      "id": "bb-page-1",
+      "image": "🌳|🐻|🌼",
+      "text": "I see a brown bear.",
+      "optionalTranslation": "我看见一只棕色的熊。",
+      "audio": "",
+      "focusWords": ["brown", "bear"],
+      "focusPattern": "bb-see",
+      "questions": [
+        {
+          "id": "bb-p1-q1",
+          "prompt": "What can you see?",
+          "type": "short-answer",
+          "answers": ["a brown bear", "I see a brown bear"]
+        }
+      ]
+    },
+    {
+      "id": "bb-page-2",
+      "image": "☀️|🐦|🌿",
+      "text": "I see a red bird near the tree.",
+      "optionalTranslation": "我看见树旁有一只红色的鸟。",
+      "audio": "",
+      "focusWords": ["red", "bird", "tree"],
+      "focusPattern": "bb-see",
+      "questions": [
+        {
+          "id": "bb-p2-q1",
+          "prompt": "Where is the bird?",
+          "type": "where",
+          "answers": ["near the tree"]
+        }
+      ]
+    },
+    {
+      "id": "bb-page-3",
+      "image": "💧|🦆|🌾",
+      "text": "Two yellow ducks are beside the pond.",
+      "optionalTranslation": "两只黄色的鸭子在池塘旁边。",
+      "audio": "",
+      "focusWords": ["yellow", "duck", "pond"],
+      "focusPattern": "bb-place",
+      "questions": [
+        {
+          "id": "bb-p3-q1",
+          "prompt": "How many ducks can you see?",
+          "type": "word",
+          "answers": ["two"]
+        }
+      ]
+    },
+    {
+      "id": "bb-page-4",
+      "image": "🌲|🐸|🐻",
+      "text": "The green frog can jump behind the bear.",
+      "optionalTranslation": "绿色的青蛙会在熊的后面跳。",
+      "audio": "",
+      "focusWords": ["green", "frog", "jump"],
+      "focusPattern": "bb-can",
+      "questions": [
+        {
+          "id": "bb-p4-q1",
+          "prompt": "Can the frog jump?",
+          "type": "yes-no",
+          "answers": ["yes", "Yes, it can"]
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "brown",
+      "word": "brown",
+      "meaning": "棕色",
+      "category": "color",
+      "image": "🟤",
+      "audio": "",
+      "phonics": "br /aʊ/ n",
+      "syllables": ["brown"],
+      "exampleSentences": ["I see a brown bear.", "The brown bear is near the tree."],
+      "distractors": ["blue", "green", "yellow"],
+      "isCore": true
+    },
+    {
+      "id": "bear",
+      "word": "bear",
+      "meaning": "熊",
+      "category": "animal",
+      "image": "🐻",
+      "audio": "",
+      "phonics": "b /eə/ r",
+      "syllables": ["bear"],
+      "exampleSentences": ["I see a brown bear.", "The bear can walk."],
+      "distractors": ["bird", "duck", "frog"],
+      "isCore": true
+    },
+    {
+      "id": "red",
+      "word": "red",
+      "meaning": "红色",
+      "category": "color",
+      "image": "🔴",
+      "audio": "",
+      "phonics": "r-e-d",
+      "syllables": ["red"],
+      "exampleSentences": ["I see a red bird."],
+      "distractors": ["brown", "green", "yellow"],
+      "isCore": true
+    },
+    {
+      "id": "bird",
+      "word": "bird",
+      "meaning": "鸟",
+      "category": "animal",
+      "image": "🐦",
+      "audio": "",
+      "phonics": "b-ir-d",
+      "syllables": ["bird"],
+      "exampleSentences": ["The red bird is near the tree."],
+      "distractors": ["bear", "duck", "frog"],
+      "isCore": true
+    },
+    {
+      "id": "yellow",
+      "word": "yellow",
+      "meaning": "黄色",
+      "category": "color",
+      "image": "🟡",
+      "audio": "",
+      "phonics": "y-e-ll-ow",
+      "syllables": ["yel", "low"],
+      "exampleSentences": ["Two yellow ducks are beside the pond."],
+      "distractors": ["brown", "green", "red"],
+      "isCore": true
+    },
+    {
+      "id": "duck",
+      "word": "duck",
+      "meaning": "鸭子",
+      "category": "animal",
+      "image": "🦆",
+      "audio": "",
+      "phonics": "d-u-ck",
+      "syllables": ["duck"],
+      "exampleSentences": ["The duck can swim."],
+      "distractors": ["bear", "bird", "frog"],
+      "isCore": true
+    },
+    {
+      "id": "green",
+      "word": "green",
+      "meaning": "绿色",
+      "category": "color",
+      "image": "🟢",
+      "audio": "",
+      "phonics": "gr-ee-n",
+      "syllables": ["green"],
+      "exampleSentences": ["The green frog can jump."],
+      "distractors": ["brown", "red", "yellow"],
+      "isCore": true
+    },
+    {
+      "id": "frog",
+      "word": "frog",
+      "meaning": "青蛙",
+      "category": "animal",
+      "image": "🐸",
+      "audio": "",
+      "phonics": "fr-o-g",
+      "syllables": ["frog"],
+      "exampleSentences": ["The frog is behind the bear."],
+      "distractors": ["bear", "bird", "duck"],
+      "isCore": true
+    },
+    {
+      "id": "tree",
+      "word": "tree",
+      "meaning": "树",
+      "category": "place",
+      "image": "🌳",
+      "audio": "",
+      "phonics": "tr-ee",
+      "syllables": ["tree"],
+      "exampleSentences": ["The bird is near the tree."],
+      "distractors": ["pond", "bear", "bird"],
+      "isCore": false
+    },
+    {
+      "id": "pond",
+      "word": "pond",
+      "meaning": "池塘",
+      "category": "place",
+      "image": "💧",
+      "audio": "",
+      "phonics": "p-o-n-d",
+      "syllables": ["pond"],
+      "exampleSentences": ["The ducks are beside the pond."],
+      "distractors": ["tree", "frog", "bird"],
+      "isCore": false
+    },
+    {
+      "id": "jump",
+      "word": "jump",
+      "meaning": "跳",
+      "category": "action",
+      "image": "⬆️",
+      "audio": "",
+      "phonics": "j-u-m-p",
+      "syllables": ["jump"],
+      "exampleSentences": ["The green frog can jump."],
+      "distractors": ["walk", "swim", "look"],
+      "isCore": false
+    }
+  ],
+  "sentencePatterns": [
+    {
+      "id": "bb-see",
+      "pattern": "I see a {color} {animal}.",
+      "slots": ["color", "animal"],
+      "replacements": {
+        "color": ["brown", "red", "yellow", "green"],
+        "animal": ["bear", "bird", "duck", "frog"]
+      },
+      "questionForms": ["Do you see a {color} {animal}?", "What can you see?", "What color is the {animal}?"],
+      "answerForms": ["Yes, I do.", "I see a {color} {animal}.", "It is {color}."],
+      "levels": ["I see a {animal}.", "I see a {color} {animal}.", "I see two {color} {animal}s.", "I can see a {color} {animal} near the tree."],
+      "examples": ["I see a brown bear.", "I see a red bird."]
+    },
+    {
+      "id": "bb-place",
+      "pattern": "The {animal} is beside the {place}.",
+      "slots": ["animal", "place"],
+      "replacements": {
+        "animal": ["duck", "frog", "bear", "bird"],
+        "place": ["pond", "tree"]
+      },
+      "questionForms": ["Where is the {animal}?"],
+      "answerForms": ["The {animal} is beside the {place}."],
+      "levels": ["The {animal} is here.", "The {animal} is beside the {place}.", "Two {animal}s are beside the {place}."],
+      "examples": ["The duck is beside the pond."]
+    },
+    {
+      "id": "bb-can",
+      "pattern": "The {animal} can {action}.",
+      "slots": ["animal", "action"],
+      "replacements": {
+        "animal": ["frog", "duck", "bird", "bear"],
+        "action": ["jump", "swim", "fly", "walk"]
+      },
+      "questionForms": ["Can the {animal} {action}?", "What can the {animal} do?"],
+      "answerForms": ["Yes, it can.", "The {animal} can {action}."],
+      "levels": ["The {animal} can {action}.", "The little {animal} can {action} near the tree."],
+      "examples": ["The frog can jump.", "The duck can swim."]
+    }
+  ],
+  "comprehensionQuestions": [
+    {
+      "id": "bb-c1",
+      "type": "picture",
+      "prompt": "Which animal is brown?",
+      "answers": ["bear"],
+      "choices": ["bear", "bird", "duck", "frog"],
+      "pageId": "bb-page-1"
+    },
+    {
+      "id": "bb-c2",
+      "type": "sequence",
+      "prompt": "Put the animals in story order.",
+      "answers": ["bear", "bird", "duck", "frog"],
+      "choices": ["frog", "bear", "duck", "bird"]
+    },
+    {
+      "id": "bb-c3",
+      "type": "where",
+      "prompt": "Where are the ducks?",
+      "answers": ["beside the pond"],
+      "pageId": "bb-page-3"
+    }
+  ],
+  "readingExtensions": [
+    {
+      "id": "bb-read-1",
+      "title": "A Walk by the Pond",
+      "sentences": [
+        "A green frog is near the pond.",
+        "It can jump.",
+        "The frog sees a yellow duck.",
+        "The duck can swim."
+      ],
+      "questions": [
+        {
+          "id": "bb-rq1",
+          "type": "what",
+          "prompt": "What can the frog do?",
+          "answers": ["jump"]
+        }
+      ]
+    }
+  ],
+  "phonicsTargets": ["br", "b", "d", "fr", "gr", "short u", "ee"],
+  "exercises": [
+    {
+      "id": "bb-ex-vocab",
+      "type": "vocabulary-cycle",
+      "title": "8-step word cycle",
+      "targetIds": ["brown", "bear", "red", "bird", "yellow", "duck", "green", "frog"]
+    }
+  ],
+  "rewards": {
+    "stars": 10,
+    "badge": "Forest Color Explorer",
+    "message": "You finished the forest color walk!"
+  },
+  "publishingStatus": "published"
+}

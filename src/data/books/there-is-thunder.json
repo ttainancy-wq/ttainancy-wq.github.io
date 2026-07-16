@@ -1,0 +1,319 @@
+{
+  "id": "there-is-thunder",
+  "title": "There Is Thunder",
+  "author": "Traditional rhyme · Forest English adaptation",
+  "cover": "⛈️",
+  "theme": "storm-sounds-and-safety",
+  "level": "level-1",
+  "suggestedDays": 4,
+  "description": "通过原创雷雨场景学习声音、天气变化、位置和安全表达。",
+  "pages": [
+    {
+      "id": "tt-page-1",
+      "image": "☁️|🌳|🐦",
+      "text": "Dark clouds are over the forest.",
+      "optionalTranslation": "乌云在森林上空。",
+      "audio": "",
+      "focusWords": ["dark", "cloud", "forest"],
+      "focusPattern": "tt-there",
+      "questions": [
+        {
+          "id": "tt-p1-q1",
+          "prompt": "What is over the forest?",
+          "type": "what",
+          "answers": ["dark clouds", "clouds"]
+        }
+      ]
+    },
+    {
+      "id": "tt-page-2",
+      "image": "⛈️|🏠|👂",
+      "text": "There is thunder far away.",
+      "optionalTranslation": "远处有雷声。",
+      "audio": "",
+      "focusWords": ["thunder", "far"],
+      "focusPattern": "tt-there",
+      "questions": [
+        {
+          "id": "tt-p2-q1",
+          "prompt": "What can you hear?",
+          "type": "short-answer",
+          "answers": ["thunder", "I can hear thunder"]
+        }
+      ]
+    },
+    {
+      "id": "tt-page-3",
+      "image": "⚡|🌧️|🏡",
+      "text": "Bright lightning flashes in the sky.",
+      "optionalTranslation": "明亮的闪电在天空中闪烁。",
+      "audio": "",
+      "focusWords": ["lightning", "bright", "sky"],
+      "focusPattern": "tt-action",
+      "questions": [
+        {
+          "id": "tt-p3-q1",
+          "prompt": "Where does the lightning flash?",
+          "type": "where",
+          "answers": ["in the sky", "sky"]
+        }
+      ]
+    },
+    {
+      "id": "tt-page-4",
+      "image": "🏠|👧|🐱",
+      "text": "Mia and the cat are safe inside.",
+      "optionalTranslation": "Mia 和小猫安全地待在屋里。",
+      "audio": "",
+      "focusWords": ["safe", "inside"],
+      "focusPattern": "tt-safe",
+      "questions": [
+        {
+          "id": "tt-p4-q1",
+          "prompt": "Where are Mia and the cat?",
+          "type": "where",
+          "answers": ["inside", "They are inside"]
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "thunder",
+      "word": "thunder",
+      "meaning": "雷声",
+      "category": "sound",
+      "image": "⛈️",
+      "audio": "",
+      "phonics": "th-un-der",
+      "syllables": ["thun", "der"],
+      "exampleSentences": ["There is thunder far away.", "I can hear loud thunder."],
+      "distractors": ["lightning", "rain", "cloud"],
+      "isCore": true
+    },
+    {
+      "id": "lightning",
+      "word": "lightning",
+      "meaning": "闪电",
+      "category": "weather",
+      "image": "⚡",
+      "audio": "",
+      "phonics": "light-ning",
+      "syllables": ["light", "ning"],
+      "exampleSentences": ["Bright lightning flashes in the sky."],
+      "distractors": ["thunder", "cloud", "rain"],
+      "isCore": true
+    },
+    {
+      "id": "cloud",
+      "word": "cloud",
+      "meaning": "云",
+      "category": "weather",
+      "image": "☁️",
+      "audio": "",
+      "phonics": "cl-ou-d",
+      "syllables": ["cloud"],
+      "exampleSentences": ["Dark clouds are over the forest."],
+      "distractors": ["sky", "rain", "thunder"],
+      "isCore": true
+    },
+    {
+      "id": "dark",
+      "word": "dark",
+      "meaning": "黑暗的",
+      "category": "description",
+      "image": "🌑",
+      "audio": "",
+      "phonics": "d-ar-k",
+      "syllables": ["dark"],
+      "exampleSentences": ["The clouds are dark."],
+      "distractors": ["bright", "loud", "safe"],
+      "isCore": true
+    },
+    {
+      "id": "bright",
+      "word": "bright",
+      "meaning": "明亮的",
+      "category": "description",
+      "image": "✨",
+      "audio": "",
+      "phonics": "br-igh-t",
+      "syllables": ["bright"],
+      "exampleSentences": ["The lightning is bright."],
+      "distractors": ["dark", "loud", "far"],
+      "isCore": true
+    },
+    {
+      "id": "loud",
+      "word": "loud",
+      "meaning": "响亮的",
+      "category": "description",
+      "image": "📣",
+      "audio": "",
+      "phonics": "l-ou-d",
+      "syllables": ["loud"],
+      "exampleSentences": ["The thunder is loud."],
+      "distractors": ["quiet", "bright", "dark"],
+      "isCore": true
+    },
+    {
+      "id": "inside",
+      "word": "inside",
+      "meaning": "在里面",
+      "category": "position",
+      "image": "🏠",
+      "audio": "",
+      "phonics": "in-side",
+      "syllables": ["in", "side"],
+      "exampleSentences": ["Mia and the cat are safe inside."],
+      "distractors": ["outside", "behind", "near"],
+      "isCore": true
+    },
+    {
+      "id": "safe",
+      "word": "safe",
+      "meaning": "安全的",
+      "category": "description",
+      "image": "🛡️",
+      "audio": "",
+      "phonics": "s-a-fe",
+      "syllables": ["safe"],
+      "exampleSentences": ["We are safe inside."],
+      "distractors": ["loud", "dark", "outside"],
+      "isCore": true
+    },
+    {
+      "id": "far",
+      "word": "far",
+      "meaning": "远的",
+      "category": "position",
+      "image": "🔭",
+      "audio": "",
+      "phonics": "f-ar",
+      "syllables": ["far"],
+      "exampleSentences": ["The thunder is far away."],
+      "distractors": ["near", "inside", "behind"],
+      "isCore": false
+    },
+    {
+      "id": "sky",
+      "word": "sky",
+      "meaning": "天空",
+      "category": "place",
+      "image": "🌌",
+      "audio": "",
+      "phonics": "sk-y",
+      "syllables": ["sky"],
+      "exampleSentences": ["Lightning flashes in the sky."],
+      "distractors": ["forest", "house", "cloud"],
+      "isCore": false
+    },
+    {
+      "id": "forest",
+      "word": "forest",
+      "meaning": "森林",
+      "category": "place",
+      "image": "🌲",
+      "audio": "",
+      "phonics": "for-est",
+      "syllables": ["for", "est"],
+      "exampleSentences": ["Dark clouds are over the forest."],
+      "distractors": ["sky", "house", "cloud"],
+      "isCore": false
+    }
+  ],
+  "sentencePatterns": [
+    {
+      "id": "tt-there",
+      "pattern": "There is {weather} {position}.",
+      "slots": ["weather", "position"],
+      "replacements": {
+        "weather": ["thunder", "lightning", "rain", "a dark cloud"],
+        "position": ["far away", "over the forest", "in the sky"]
+      },
+      "questionForms": ["What is there {position}?", "Is there {weather}?"],
+      "answerForms": ["There is {weather}.", "Yes, there is."],
+      "levels": ["There is {weather}.", "There is {weather} {position}.", "There is loud {weather} {position}."],
+      "examples": ["There is thunder far away."]
+    },
+    {
+      "id": "tt-action",
+      "pattern": "{weather} {action} in the {place}.",
+      "slots": ["weather", "action", "place"],
+      "replacements": {
+        "weather": ["Lightning", "Rain", "A dark cloud"],
+        "action": ["flashes", "falls", "moves"],
+        "place": ["sky", "forest", "garden"]
+      },
+      "questionForms": ["What {action} in the {place}?", "Where does {weather} {action}?"],
+      "answerForms": ["{weather} {action} in the {place}."],
+      "levels": ["{weather} {action}.", "Bright {weather} {action} in the {place}."],
+      "examples": ["Lightning flashes in the sky."]
+    },
+    {
+      "id": "tt-safe",
+      "pattern": "The {person} is safe {position}.",
+      "slots": ["person", "position"],
+      "replacements": {
+        "person": ["child", "cat", "family", "dog"],
+        "position": ["inside", "in the house"]
+      },
+      "questionForms": ["Where is the {person}?", "Is the {person} safe?"],
+      "answerForms": ["The {person} is safe {position}.", "Yes, the {person} is safe."],
+      "levels": ["The {person} is safe.", "The {person} is safe {position}.", "The little {person} is safe {position} during the storm."],
+      "examples": ["The cat is safe inside."]
+    }
+  ],
+  "comprehensionQuestions": [
+    {
+      "id": "tt-c1",
+      "type": "picture",
+      "prompt": "Which one can you hear?",
+      "answers": ["thunder"],
+      "choices": ["thunder", "lightning", "cloud", "inside"],
+      "pageId": "tt-page-2"
+    },
+    {
+      "id": "tt-c2",
+      "type": "sequence",
+      "prompt": "Put the storm story in order.",
+      "answers": ["cloud", "thunder", "lightning", "safe"],
+      "choices": ["safe", "lightning", "cloud", "thunder"]
+    }
+  ],
+  "readingExtensions": [
+    {
+      "id": "tt-read-1",
+      "title": "A Safe Stormy Evening",
+      "sentences": [
+        "Dark clouds move over the forest.",
+        "Mia can hear loud thunder.",
+        "Bright lightning flashes in the sky.",
+        "Mia and her cat stay safe inside."
+      ],
+      "questions": [
+        {
+          "id": "tt-rq1",
+          "type": "where",
+          "prompt": "Where do Mia and the cat stay?",
+          "answers": ["inside"]
+        }
+      ]
+    }
+  ],
+  "phonicsTargets": ["th", "cl", "ou", "igh", "br", "in", "side"],
+  "exercises": [
+    {
+      "id": "tt-ex-vocab",
+      "type": "vocabulary-cycle",
+      "title": "8-step storm word cycle",
+      "targetIds": ["thunder", "lightning", "cloud", "dark", "bright", "loud", "inside", "safe"]
+    }
+  ],
+  "rewards": {
+    "stars": 10,
+    "badge": "Thunder Sound Explorer",
+    "message": "You can describe a storm and tell how to stay safe!"
+  },
+  "publishingStatus": "published"
+}

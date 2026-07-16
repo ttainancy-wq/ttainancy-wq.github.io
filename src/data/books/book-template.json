@@ -1,0 +1,99 @@
+{
+  "id": "new-book-id",
+  "title": "New Book Title",
+  "author": "Forest English Studio",
+  "cover": "📘",
+  "theme": "topic-name",
+  "level": "starter",
+  "suggestedDays": 4,
+  "description": "用一句话说明孩子将学到什么。",
+  "pages": [
+    {
+      "id": "page-1",
+      "image": "🌳|🐾|☀️",
+      "text": "Write one clear English sentence.",
+      "optionalTranslation": "可选中文提示。",
+      "audio": "",
+      "focusWords": ["word-id"],
+      "focusPattern": "pattern-1",
+      "questions": [
+        {
+          "id": "page-1-q1",
+          "prompt": "What can you see?",
+          "type": "short-answer",
+          "answers": ["sample answer"],
+          "choices": []
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "word-id",
+      "word": "word",
+      "meaning": "中文释义",
+      "category": "animal",
+      "image": "🐾",
+      "audio": "",
+      "phonics": "w-or-d",
+      "syllables": ["word"],
+      "exampleSentences": ["Put the word in a complete sentence."],
+      "distractors": ["choice-a", "choice-b", "choice-c"],
+      "isCore": true
+    }
+  ],
+  "sentencePatterns": [
+    {
+      "id": "pattern-1",
+      "pattern": "I see a {color} {animal}.",
+      "slots": ["color", "animal"],
+      "replacements": {
+        "color": ["brown", "red", "yellow", "green"],
+        "animal": ["bear", "bird", "duck", "frog"]
+      },
+      "questionForms": ["What can you see?", "Do you see a {color} {animal}?"],
+      "answerForms": ["I see a {color} {animal}.", "Yes, I do."],
+      "levels": ["I see a {animal}.", "I see a {color} {animal}.", "I see two {color} {animal}s."],
+      "examples": ["I see a brown bear."]
+    }
+  ],
+  "comprehensionQuestions": [
+    {
+      "id": "question-1",
+      "type": "picture",
+      "prompt": "Add a story question.",
+      "answers": ["answer"],
+      "choices": ["answer", "other"]
+    }
+  ],
+  "readingExtensions": [
+    {
+      "id": "reading-1",
+      "title": "Short Extension",
+      "sentences": ["Write three to five short sentences.", "Reuse learned words.", "Add one new combination."],
+      "questions": [
+        {
+          "id": "reading-q1",
+          "type": "what",
+          "prompt": "Add a reading question.",
+          "answers": ["answer"]
+        }
+      ]
+    }
+  ],
+  "phonicsTargets": ["initial sound", "word family"],
+  "exercises": [
+    {
+      "id": "exercise-1",
+      "type": "vocabulary-cycle",
+      "title": "8-step word cycle",
+      "targetIds": ["word-id"]
+    }
+  ],
+  "rewards": {
+    "stars": 10,
+    "badge": "New Book Explorer",
+    "message": "You completed a new story!"
+  },
+  "publishingStatus": "draft"
+}
