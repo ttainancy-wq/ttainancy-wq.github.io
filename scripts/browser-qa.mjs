@@ -61,6 +61,25 @@ for (const viewport of viewports) {
     fullPage: true,
   })
 
+  await page.locator('.complete-stage-button').click()
+  await page.waitForSelector('.reward-overlay')
+  const stageReward = await page.evaluate(() => ({
+    width: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+    flowersAndStars: document.querySelectorAll('.celebration-field i').length,
+    title: document.querySelector('.reward-overlay h2')?.textContent?.trim(),
+    hasReplayShower: [...document.querySelectorAll('.reward-actions button')]
+      .some((node) => node.textContent?.includes('再来一场星星雨')),
+    hasContinue: [...document.querySelectorAll('.reward-actions button')]
+      .some((node) => node.textContent?.includes('进入第 2 阶段')),
+  }))
+  await page.screenshot({
+    path: `/private/tmp/mia-qa-${viewport.name}-reward.png`,
+    fullPage: true,
+  })
+  await page.locator('.reward-continue').click()
+  await page.waitForSelector('.reward-overlay', { state: 'detached' })
+
   await page.goto(`${baseUrl}#/parent`, { waitUntil: 'networkidle' })
   await page.getByRole('button', { name: /Book Studio/ }).click()
   await page.waitForSelector('.book-studio')
@@ -87,33 +106,50 @@ for (const viewport of viewports) {
     localStorage.setItem('forest-english-progress-v4', JSON.stringify(progress))
   })
   await page.goto(`${baseUrl}#/skills/listening`, { waitUntil: 'networkidle' })
+  await page.reload({ waitUntil: 'networkidle' })
   await page.waitForSelector('.listening-lab')
   const listening = await page.evaluate(() => ({
     width: document.documentElement.scrollWidth,
     clientWidth: document.documentElement.clientWidth,
     listeningModes: document.querySelectorAll('.listening-mode-tabs button').length,
     choices: document.querySelectorAll('.training-question .answer-grid button').length,
+    hasSenseBridge: Boolean(document.querySelector('.sense-bridge')),
+    senseChoices: document.querySelectorAll('.sense-choices button').length,
+    containsInjectedLocation: /\b(near|behind|beside)\b/i.test(document.querySelector('.skills-content')?.textContent ?? ''),
   }))
+  await page.screenshot({
+    path: `/private/tmp/mia-qa-${viewport.name}-sense-bridge.png`,
+    fullPage: true,
+  })
 
   results.push({
     viewport,
     home,
     bookPage,
+    stageReward,
     studio,
     listening,
     errors,
     passed:
       home.width <= home.clientWidth + 1 &&
       bookPage.width <= bookPage.clientWidth + 1 &&
+      stageReward.width <= stageReward.clientWidth + 1 &&
       studio.width <= studio.clientWidth + 1 &&
       listening.width <= listening.clientWidth + 1 &&
       home.books.join('|') === 'Brown Bear|Rain Rain Go Away|There Is Thunder' &&
       home.skillCards === 5 &&
       bookPage.stages === 6 &&
+      stageReward.flowersAndStars === 84 &&
+      stageReward.title === 'Stage 1 Complete!' &&
+      stageReward.hasReplayShower &&
+      stageReward.hasContinue &&
       studio.hasCreate &&
       studio.hasImport &&
       studio.hasPublish &&
       listening.listeningModes === 7 &&
+      listening.hasSenseBridge &&
+      listening.senseChoices === 2 &&
+      !listening.containsInjectedLocation &&
       errors.length === 0,
   })
 

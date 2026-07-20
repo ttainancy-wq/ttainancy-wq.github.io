@@ -14,9 +14,17 @@ describe('book data model and validation', () => {
       expect(result.errors, `${book.title}: ${result.errors.join(', ')}`).toEqual([])
       expect(result.valid).toBe(true)
       expect(book.pages.length).toBeGreaterThanOrEqual(4)
-      expect(book.vocabulary.filter((word) => word.isCore).length).toBeGreaterThanOrEqual(7)
-      expect(book.sentencePatterns.length).toBeGreaterThanOrEqual(3)
+      expect(book.vocabulary.filter((word) => word.isCore).length).toBeGreaterThanOrEqual(6)
+      expect(book.sentencePatterns.length).toBeGreaterThanOrEqual(1)
     })
+    const brownBear = builtInBooks[0]
+    expect(brownBear.sentencePatterns).toHaveLength(1)
+    const brownBearPracticeText = JSON.stringify({
+      pages: brownBear.pages,
+      patterns: brownBear.sentencePatterns,
+      reading: brownBear.readingExtensions,
+    })
+    expect(brownBearPracticeText).not.toMatch(/\b(near|behind|beside|can)\b/i)
   })
 
   it('provides a complete reusable draft template', () => {

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { generateSentences } from '../lib/sentenceGenerator'
 import { planSession, type TrainingMode } from '../lib/sessionPlanner'
 import { recordWordPractice } from '../lib/storage'
 import { speak } from '../lib/speech'
@@ -42,6 +43,70 @@ function allLearnedWords(books: Book[], progress: LearningProgress): VocabularyI
     .flatMap((book) => book.vocabulary.filter((word) => word.isCore))
 }
 
+interface SenseExample {
+  sense: 'see' | 'hear'
+  sentence: string
+  book: Book
+}
+
+function learnedSenseExamples(books: Book[], progress: LearningProgress): SenseExample[] {
+  return books
+    .filter((book) => book.publishingStatus === 'published' && progress.learnedBookIds.includes(book.id))
+    .flatMap((book) => book.sentencePatterns.flatMap((pattern) => {
+      const sense = /\bI see\b/i.test(pattern.pattern)
+        ? 'see'
+        : /\bI hear\b/i.test(pattern.pattern)
+          ? 'hear'
+          : null
+      if (!sense) return []
+      const examples = pattern.examples.length ? pattern.examples : [generateSentences(book.id, pattern, 1)[0]?.text]
+      return examples.filter(Boolean).slice(0, 2).map((sentence) => ({ sense, sentence, book }))
+    }))
+}
+
+function SenseBridge({ books, progress }: { books: Book[]; progress: LearningProgress }) {
+  const examples = learnedSenseExamples(books, progress)
+  const senses = new Set(examples.map((item) => item.sense))
+  const [index, setIndex] = useState(0)
+  const [feedback, setFeedback] = useState('')
+  if (senses.size < 2) return null
+  const current = examples[index % examples.length]
+  const blank = current.sentence.replace(/\b(see|hear)\b/i, '___')
+
+  function answer(sense: 'see' | 'hear') {
+    const correct = sense === current.sense
+    setFeedback(correct ? `Great! ${current.sentence}` : '想一想：眼睛用 see，耳朵用 hear。')
+    if (correct) {
+      speak(current.sentence, { rate: 0.78, style: 'story' })
+      window.setTimeout(() => {
+        setIndex((index + 1) % examples.length)
+        setFeedback('')
+      }, 900)
+    }
+  }
+
+  return (
+    <section className="sense-bridge">
+      <div className="sense-bridge-heading">
+        <span>🌉</span>
+        <div><small>绘本联想桥 · CROSS-BOOK CONNECTION</small><h2>👀 see 还是 👂 hear？</h2><p>只组合已经学过的绘本句型，不加入新语法。</p></div>
+      </div>
+      <div className="sense-book-pair">
+        {[...new Map(examples.map((item) => [item.book.id, item.book])).values()].map((book) => <span key={book.id}>{book.cover} {book.title}</span>)}
+      </div>
+      <button className="sense-sentence" type="button" onClick={() => speak(current.sentence, { rate: 0.75, style: 'story' })}>
+        <small>{current.book.cover} 点我听完整句</small>
+        <b>{blank}</b>
+      </button>
+      <div className="sense-choices">
+        <button type="button" onClick={() => answer('see')}>👀 see · 看见</button>
+        <button type="button" onClick={() => answer('hear')}>👂 hear · 听见</button>
+      </div>
+      {feedback && <p className={feedback.startsWith('Great') ? 'feedback good' : 'feedback gentle'}>{feedback}</p>}
+    </section>
+  )
+}
+
 function ListeningLab({
   books,
   progress,
@@ -56,6 +121,9 @@ function ListeningLab({
   const target = question ? words.find((word) => word.id === question.answerId) : words[0]
 
   if (!question || !target) return <EmptyTraining />
+  const sourceBook = books.find((book) => book.id === question.sourceBookId)
+  const storySentence = question.sentence ?? target.exampleSentences[0] ?? target.word
+  const sense = /\bhear\b/i.test(storySentence) || target.category === 'sound' ? 'hear' : 'see'
 
   function answer(correct: boolean) {
     onProgress(recordWordPractice(progress, question.answerId, 'listening', correct))
@@ -77,8 +145,8 @@ function ListeningLab({
       {subMode === 3 && (
         <section className="training-question">
           <span>Listening Question</span>
-          <SceneArt scene={`🌳|${target.image}|🦆`} label="可点击听力场景" />
-          <button className="question-audio" type="button" onClick={() => speak(`Which animal is standing behind the yellow duck? Find the ${target.word}.`)}>
+          <SceneArt scene={`${sourceBook?.cover ?? '📖'}|${target.image}|✨`} label="可点击听力场景" />
+          <button className="question-audio" type="button" onClick={() => speak(storySentence, { rate: 0.76, style: 'question' })}>
             🔊 Play the question
           </button>
           <button className="scene-target-button" type="button" onClick={() => answer(true)}>{target.image}</button>
@@ -88,40 +156,40 @@ function ListeningLab({
       {subMode === 4 && (
         <section className="conversation-card">
           <span>🦊 Momo asks</span>
-          <h3>{turn === 0 ? 'What can you see near the tree?' : `What color is the ${target.word}?`}</h3>
-          <button type="button" onClick={() => speak(turn === 0 ? 'What can you see near the tree?' : `What color is the ${target.word}?`)}>
+          <h3>{turn === 0 ? `What do you ${sense}?` : storySentence}</h3>
+          <button type="button" onClick={() => speak(turn === 0 ? `What do you ${sense}?` : storySentence, { rate: 0.78, style: 'question' })}>
             🔊 Listen
           </button>
           <div className="answer-grid text-choices">
-            {(turn === 0 ? [target.word, `I can see a ${target.word}.`] : ['brown', 'green', 'yellow']).map((choice) => (
+            {(turn === 0 ? [target.word, storySentence] : [storySentence, target.word]).map((choice) => (
               <button type="button" key={choice} onClick={() => { answer(true); setTurn(Math.min(1, turn + 1)) }}>{choice}</button>
             ))}
           </div>
-          <RecordingPanel sentence={turn === 0 ? `I can see a ${target.word}.` : `The ${target.word} is brown.`} wordId={target.id} />
+          <RecordingPanel sentence={storySentence} wordId={target.id} />
         </section>
       )}
 
       {subMode === 5 && (
         <section className="action-card">
           <span>Listening Action · 支持触摸点击</span>
-          <button type="button" onClick={() => speak(`Move the ${target.word} beside the bear.`)}>
+          <button type="button" onClick={() => speak(`Tap ${target.word}.`, { rate: 0.76, style: 'question' })}>
             🔊 Play instruction
           </button>
           <div className={`action-scene ${moved ? 'moved' : ''}`}>
             <button type="button" onClick={() => { setMoved(true); answer(true) }}>{target.image}</button>
-            <span>🐻</span>
-            <i>pond</i>
+            <span>{sourceBook?.cover ?? '📖'}</span>
+            <i>{sourceBook?.title}</i>
           </div>
-          <p>{moved ? `Great! The ${target.word} is beside the bear.` : `Touch and move the ${target.word}.`}</p>
+          <p>{moved ? `Great! You found ${target.word}.` : `Touch ${target.word}.`}</p>
         </section>
       )}
 
       {subMode === 6 && (
         <section className="training-question">
           <span>Recording Answer</span>
-          <h3>What can you see near the pond?</h3>
-          <button type="button" onClick={() => speak('What can you see near the pond?')}>🔊 Listen</button>
-          <RecordingPanel sentence={`I can see a ${target.word} near the pond.`} wordId={target.id} />
+          <h3>What do you {sense}?</h3>
+          <button type="button" onClick={() => speak(`What do you ${sense}?`, { rate: 0.76, style: 'question' })}>🔊 Listen</button>
+          <RecordingPanel sentence={storySentence} wordId={target.id} />
         </section>
       )}
 
@@ -149,11 +217,14 @@ function ReadingLab({
   const extension = extensions[0]
   if (!current || !extension) return <EmptyTraining />
 
-  const transformed = `${current.text.replace(/\.$/, '')} near the tree with two friends.`
+  const transformed = current.book.sentencePatterns
+    .flatMap((pattern) => generateSentences(current.book.id, pattern, 14))
+    .map((sentence) => sentence.text)
+    .find((sentence) => sentence !== current.text) ?? current.text
   return (
     <div className="reading-lab">
       <section className="reading-card">
-        <span>{current.book.cover} Original → Transformed Sentence</span>
+        <span>{current.book.cover} 原句 → 本绘本句型变形</span>
         <h3>{hint === 0 ? current.text : transformed}</h3>
         {hint >= 2 && <SceneArt compact scene={current.image} label={current.text} />}
         <div className="reading-actions">
@@ -271,7 +342,7 @@ function WordGamesLab({
         )}
         {game === 3 && (
           <div className="sorting-board">
-            {['animal', 'color', 'action'].map((category) => (
+            {[...new Set(words.map((word) => word.category))].slice(0, 4).map((category) => (
               <button type="button" key={category} onClick={() => onProgress(recordWordPractice(progress, target.id, 'reading', target.category === category))}>
                 {category}
               </button>
@@ -371,6 +442,7 @@ export function SkillsTraining({
           <span>{info.icon}</span>
           <div><small>SKILLS TRAINING</small><h1>{info.title}</h1><p>{info.zh} · 内容来自已学绘本和薄弱词</p></div>
         </div>
+        <SenseBridge books={books} progress={progress} />
         {mode === 'listening' && <ListeningLab books={books} progress={progress} onProgress={onProgress} />}
         {mode === 'reading' && <ReadingLab books={books} progress={progress} onProgress={onProgress} />}
         {mode === 'phonics' && <PhonicsLab books={books} progress={progress} onProgress={onProgress} />}

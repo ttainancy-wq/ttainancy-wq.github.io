@@ -98,6 +98,12 @@ export function migrateProgress(raw: unknown): LearningProgress {
   const learnedBookIds = builtInBooks
     .filter((book) => book.vocabulary.some((word) => legacyWordIds.has(word.id)))
     .map((book) => book.id)
+  if (
+    ['rainy', 'rain', 'umbrella', 'puddle', 'away', 'again'].some((id) => legacyWordIds.has(id)) &&
+    !learnedBookIds.includes('rain-rain-go-away')
+  ) {
+    learnedBookIds.push('rain-rain-go-away')
+  }
   if (legacyWordIds.size && !learnedBookIds.includes('brown-bear')) learnedBookIds.unshift('brown-bear')
   const books: Record<string, BookProgress> = Object.fromEntries(
     learnedBookIds.map((bookId) => [

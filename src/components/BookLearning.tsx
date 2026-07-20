@@ -7,7 +7,7 @@ import {
   recordPatternPractice,
   recordWordPractice,
 } from '../lib/storage'
-import { speak } from '../lib/speech'
+import { playNarration, speak } from '../lib/speech'
 import type { Book, VocabularyItem } from '../types/book'
 import type { LearningProgress } from '../types/progress'
 import { RecordingPanel } from './RecordingPanel'
@@ -118,7 +118,7 @@ function VocabularyCycle({
 
       {modeIndex === 0 && (
         <div className="word-showcase">
-          <button className="word-picture" type="button" onClick={() => speak(word.word)}>
+          <button className="word-picture" type="button" onClick={() => playNarration(word.word, word.audio, { rate: 0.78, style: 'word' })}>
             <span>{word.image}</span>
             <b>{word.word}</b>
             <small>{word.meaning}</small>
@@ -146,7 +146,7 @@ function VocabularyCycle({
 
       {modeIndex === 2 && (
         <div className="practice-block">
-          <button className="listen-orb" type="button" onClick={() => speak(word.word)}>
+          <button className="listen-orb" type="button" onClick={() => playNarration(word.word, word.audio, { rate: 0.78, style: 'word' })}>
             🔊
           </button>
           <h3>Listen and choose the picture.</h3>
@@ -244,7 +244,7 @@ function VocabularyCycle({
           <span>🧠</span>
           <h3>不用看提示：这个词怎么读？什么意思？</h3>
           <b>{word.word}</b>
-          <button type="button" onClick={() => speak(word.word, 0.72)}>
+          <button type="button" onClick={() => playNarration(word.word, word.audio, { rate: 0.72, style: 'word' })}>
             我先回答，再听标准音
           </button>
           <div className="answer-grid text-choices">
@@ -271,9 +271,13 @@ function StoryIntroduction({ book }: { book: Book }) {
 
   function play(rate: number) {
     setActiveWord(0)
-    speak(page.text, rate, (charIndex) => {
-      const before = page.text.slice(0, charIndex)
-      setActiveWord(Math.max(0, before.split(/\s+/).length - 1))
+    playNarration(page.text, page.audio, {
+      rate,
+      style: 'story',
+      onBoundary: (charIndex) => {
+        const before = page.text.slice(0, charIndex)
+        setActiveWord(Math.max(0, before.split(/\s+/).length - 1))
+      },
     })
   }
 
@@ -689,7 +693,7 @@ function Challenge({
 export function BookLearning({ book, progress, onProgress, onExit }: BookLearningProps) {
   const initialStage = progress.books[book.id]?.currentStage ?? 1
   const [stage, setStage] = useState(initialStage)
-  const [reward, setReward] = useState(false)
+  const [reward, setReward] = useState<{ stage: number; final: boolean; stars: number } | null>(null)
   const startedProgress = useMemo(() => markBookStarted(progress, book.id), [book.id, progress])
 
   function goToStage(next: number) {
@@ -700,8 +704,11 @@ export function BookLearning({ book, progress, onProgress, onExit }: BookLearnin
   }
 
   function completeCurrent() {
-    onProgress(completeBookStage(progress, book.id, stage))
-    if (stage < 6) goToStage(stage + 1)
+    const alreadyCompleted = progress.books[book.id]?.completedStages.includes(stage) ?? false
+    const completed = completeBookStage(progress, book.id, stage)
+    const stageStars = alreadyCompleted ? 0 : 2
+    onProgress({ ...completed, stars: completed.stars + stageStars })
+    setReward({ stage, final: false, stars: stageStars })
   }
 
   return (
@@ -714,7 +721,7 @@ export function BookLearning({ book, progress, onProgress, onExit }: BookLearnin
         </div>
         <button type="button" onClick={() => {
           const page = book.pages[(stage - 1) % book.pages.length]
-          speak(page.text)
+          playNarration(page.text, page.audio, { rate: 0.82, style: 'story' })
         }}>🔊 重复播放</button>
       </header>
       <nav className="stage-map" aria-label="绘本学习阶段">
@@ -750,10 +757,11 @@ export function BookLearning({ book, progress, onProgress, onExit }: BookLearnin
             book={book}
             progress={progress}
             onFinish={(score) => {
+              const alreadyCompleted = progress.books[book.id]?.completedStages.includes(6) ?? false
               const completed = completeBookStage(progress, book.id, 6)
               onProgress({
                 ...completed,
-                stars: completed.stars + book.rewards.stars,
+                stars: completed.stars + (alreadyCompleted ? 0 : book.rewards.stars),
                 stickers: [...new Set([...completed.stickers, book.rewards.badge])],
                 books: {
                   ...completed.books,
@@ -763,7 +771,7 @@ export function BookLearning({ book, progress, onProgress, onExit }: BookLearnin
                   },
                 },
               })
-              setReward(true)
+              setReward({ stage: 6, final: true, stars: alreadyCompleted ? 0 : book.rewards.stars })
             }}
           />
         )}
@@ -775,10 +783,21 @@ export function BookLearning({ book, progress, onProgress, onExit }: BookLearnin
       </section>
       {reward && (
         <RewardOverlay
-          title={book.rewards.badge}
-          message={book.rewards.message}
-          stars={book.rewards.stars}
-          onDone={onExit}
+          title={reward.final ? book.rewards.badge : `Stage ${reward.stage} Complete!`}
+          message={reward.final ? book.rewards.message : `太棒了！“${STAGES[reward.stage - 1][1]}”完成，满屏花朵和星星都送给你！`}
+          stars={reward.stars}
+          variant={reward.final ? 'book' : 'stage'}
+          buttonLabel={reward.final ? '返回绘本地图' : `进入第 ${reward.stage + 1} 阶段 →`}
+          onDone={() => {
+            if (reward.final) {
+              onExit()
+              return
+            }
+            const next = Math.min(6, reward.stage + 1)
+            setReward(null)
+            setStage(next)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }}
         />
       )}
     </main>

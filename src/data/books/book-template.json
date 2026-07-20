@@ -19,7 +19,7 @@
       "questions": [
         {
           "id": "page-1-q1",
-          "prompt": "What can you see?",
+          "prompt": "Add one question from the book.",
           "type": "short-answer",
           "answers": ["sample answer"],
           "choices": []
@@ -51,9 +51,9 @@
         "color": ["brown", "red", "yellow", "green"],
         "animal": ["bear", "bird", "duck", "frog"]
       },
-      "questionForms": ["What can you see?", "Do you see a {color} {animal}?"],
+      "questionForms": ["What do you see?", "Do you see a {color} {animal}?"],
       "answerForms": ["I see a {color} {animal}.", "Yes, I do."],
-      "levels": ["I see a {animal}.", "I see a {color} {animal}.", "I see two {color} {animal}s."],
+      "levels": ["I see a {animal}.", "I see a {color} {animal}."],
       "examples": ["I see a brown bear."]
     }
   ],
@@ -70,7 +70,7 @@
     {
       "id": "reading-1",
       "title": "Short Extension",
-      "sentences": ["Write three to five short sentences.", "Reuse learned words.", "Add one new combination."],
+      "sentences": ["Write three to five short sentences.", "Only reuse words and patterns from this book."],
       "questions": [
         {
           "id": "reading-q1",

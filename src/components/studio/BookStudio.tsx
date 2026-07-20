@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { cloneBookTemplate } from '../../data/books'
 import { validateBook, type ValidationResult } from '../../lib/bookValidator'
+import { playNarration } from '../../lib/speech'
 import type {
   Book,
   BookPage,
@@ -102,6 +103,7 @@ export function PageEditor({
   onChange: (pages: BookPage[]) => void
 }) {
   const [selected, setSelected] = useState(0)
+  const [audioMessage, setAudioMessage] = useState('')
   const page = pages[selected]
 
   function update(patch: Partial<BookPage>) {
@@ -167,6 +169,32 @@ export function PageEditor({
         </label>
         <label>页面英文<textarea rows={3} value={page.text} onChange={(event) => update({ text: event.target.value })} /></label>
         <label>可选中文<textarea rows={2} value={page.optionalTranslation ?? ''} onChange={(event) => update({ optionalTranslation: event.target.value })} /></label>
+        <label>真人朗读音频 URL（没有可留空，自动使用设备清晰英语音色）
+          <input
+            value={page.audio.startsWith('data:') ? '' : page.audio}
+            placeholder={page.audio.startsWith('data:') ? '已导入本地音频文件' : 'https://.../page-audio.mp3'}
+            onChange={(event) => update({ audio: event.target.value })}
+          />
+        </label>
+        <label>或导入你有权使用的原版 / 真人录音（每段不超过 500 KB；较大文件请使用音频 URL）
+          <input type="file" accept="audio/*" onChange={(event) => {
+            const file = event.target.files?.[0]
+            if (!file) return
+            if (file.size > 500 * 1024) {
+              setAudioMessage('音频超过 500 KB，建议先压缩或改用音频 URL，避免浏览器本地空间不足。')
+              return
+            }
+            void readImage(file).then((audio) => {
+              update({ audio })
+              setAudioMessage(`已导入：${file.name}`)
+            })
+          }} />
+        </label>
+        <div className="audio-editor-actions">
+          <button type="button" disabled={!page.audio} onClick={() => playNarration(page.text, page.audio)}>▶ 试听页面朗读</button>
+          <button type="button" disabled={!page.audio} onClick={() => { update({ audio: '' }); setAudioMessage('已移除页面音频，将使用设备英语音色。') }}>移除音频</button>
+          {audioMessage && <small>{audioMessage}</small>}
+        </div>
         <label>重点单词 ID（逗号分隔）
           <input value={page.focusWords.join(', ')} onChange={(event) => update({ focusWords: event.target.value.split(',').map((item) => item.trim()).filter(Boolean) })} />
         </label>
@@ -253,7 +281,7 @@ function newPattern(): SentencePattern {
     pattern: 'I see a {color} {animal}.',
     slots: ['color', 'animal'],
     replacements: { color: ['brown', 'red'], animal: ['bear', 'bird'] },
-    questionForms: ['What can you see?'],
+    questionForms: ['What do you see?'],
     answerForms: ['I see a {color} {animal}.'],
     levels: ['I see a {animal}.', 'I see a {color} {animal}.'],
     examples: ['I see a brown bear.'],
@@ -309,7 +337,7 @@ function newQuestion(): ComprehensionQuestion {
   return {
     id: makeId('question'),
     type: 'what',
-    prompt: 'What can you see?',
+    prompt: 'Add one question from the book.',
     answers: ['answer'],
     choices: [],
   }
@@ -361,6 +389,7 @@ export function BookPreview({ book }: { book: Book }) {
           {current.image.startsWith('data:') ? <img src={current.image} alt={current.text} /> : <SceneArt scene={current.image} label={current.text} />}
           <h3>{current.text}</h3>
           <p>{current.optionalTranslation}</p>
+          <button type="button" onClick={() => playNarration(current.text, current.audio)}>🔊 试听朗读</button>
           <div className="page-navigation">
             <button type="button" disabled={page === 0} onClick={() => setPage(page - 1)}>←</button>
             <b>{page + 1}/{book.pages.length}</b>

@@ -6,8 +6,8 @@ import { planSession } from './sessionPlanner'
 function learnedProgress() {
   const progress = createProgress()
   progress.learnedBookIds = builtInBooks.map((book) => book.id)
-  progress.difficultWords = ['rainy']
-  progress.words.rainy = {
+  progress.difficultWords = ['rain']
+  progress.words.rain = {
     ...createWordProgress(),
     exposureCount: 8,
     listenIncorrect: 5,
@@ -44,16 +44,16 @@ describe('SessionPlanner and QuestionEngine', () => {
     })
 
     expect(Math.max(...Object.values(plan.report.wordCounts))).toBeLessThanOrEqual(2)
-    expect(plan.report.wordCounts.rainy ?? 0).toBeLessThanOrEqual(2)
+    expect(plan.report.wordCounts.rain ?? 0).toBeLessThanOrEqual(2)
     const bookCounts = Object.values(plan.report.bookCounts)
     expect(Math.max(...bookCounts) - Math.min(...bookCounts)).toBeLessThanOrEqual(2)
   })
 
   it('prioritizes weak content, but can surface it as spaced review without repeating the correct answer', () => {
     const plan = planSession(builtInBooks, learnedProgress(), 'listening', 12, 18)
-    expect(plan.questions[0].answerId).toBe('rainy')
-    expect(plan.questions.slice(2, 5).some((question) => question.reviewWordIds.includes('rainy'))).toBe(true)
-    expect(plan.questions.slice(1, 6).some((question) => question.answerId === 'rainy')).toBe(false)
+    expect(plan.questions[0].answerId).toBe('rain')
+    expect(plan.questions.slice(2, 5).some((question) => question.reviewWordIds.includes('rain'))).toBe(true)
+    expect(plan.questions.slice(1, 6).some((question) => question.answerId === 'rain')).toBe(false)
   })
 
   it('only reads published books that the child has learned', () => {

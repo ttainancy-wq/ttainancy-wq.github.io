@@ -3,33 +3,44 @@ import { builtInBooks } from '../data/books'
 import { generateSentences } from './sentenceGenerator'
 
 describe('SentenceGenerator', () => {
-  it('generates traceable singular, plural, question, answer, location and action forms', () => {
-    const book = builtInBooks[0]
-    const sentences = generateSentences(book.id, book.sentencePatterns[0], 18)
-    const kinds = new Set(sentences.map((sentence) => sentence.kind))
-    expect(kinds.has('statement')).toBe(true)
-    expect(kinds.has('plural')).toBe(true)
-    expect(kinds.has('yes-no-question')).toBe(true)
-    expect(kinds.has('wh-question')).toBe(true)
-    expect(kinds.has('short-answer')).toBe(true)
-    expect(kinds.has('full-answer')).toBe(true)
-    expect(kinds.has('location')).toBe(true)
-    expect(kinds.has('action')).toBe(true)
+  it('uses only the Brown Bear see pattern without injecting harder grammar', () => {
+    const book = builtInBooks.find((item) => item.id === 'brown-bear')!
+    const sentences = generateSentences(book.id, book.sentencePatterns[0], 30)
+    const text = sentences.map((sentence) => sentence.text)
+
+    expect(text).toContain('I see a brown bear.')
+    expect(text).toContain('I see a red bird.')
+    expect(text).toContain('I see a yellow duck.')
+    expect(text).toContain('I see a green frog.')
+    expect(text).toContain('What do you see?')
+    expect(text).toContain('Do you see a yellow duck?')
+    expect(text.join(' ')).not.toMatch(/\b(near|behind|beside|can|two)\b/i)
+    expect(text).not.toContain('I see a brown bird.')
+
     sentences.forEach((sentence) => {
       expect(sentence.sourceBookId).toBe(book.id)
-      expect(sentence.sourcePatternId).toBe(book.sentencePatterns[0].id)
-      expect(sentence.difficulty).toBeGreaterThanOrEqual(1)
+      expect(sentence.sourcePatternId).toBe('bb-see')
       expect(sentence.expectedAnswers.length).toBeGreaterThan(0)
       expect(sentence.text).not.toMatch(/\{.+\}/)
       expect(sentence.text).not.toMatch(/\ba [aeiou]/i)
     })
   })
 
-  it('does not inject animal grammar into weather-only patterns', () => {
+  it('keeps Rain and Thunder variants inside their own configured book language', () => {
     const rainBook = builtInBooks.find((book) => book.id === 'rain-rain-go-away')!
-    const sentences = generateSentences(rainBook.id, rainBook.sentencePatterns[0], 16)
-    expect(sentences.some((sentence) => sentence.text.includes('animal'))).toBe(false)
-    expect(sentences.some((sentence) => sentence.text === 'It is a rainy day.')).toBe(true)
-    expect(sentences.some((sentence) => sentence.text === 'What is the weather like?')).toBe(true)
+    const rainText = rainBook.sentencePatterns
+      .flatMap((pattern) => generateSentences(rainBook.id, pattern, 20))
+      .map((sentence) => sentence.text)
+      .join(' ')
+    expect(rainText).toContain('Rain, rain, go away.')
+    expect(rainText).toContain('Come again another day.')
+    expect(rainText).not.toMatch(/\b(near|behind|beside)\b/i)
+
+    const thunderBook = builtInBooks.find((book) => book.id === 'there-is-thunder')!
+    const thunderText = thunderBook.sentencePatterns
+      .flatMap((pattern) => generateSentences(thunderBook.id, pattern, 20))
+      .map((sentence) => sentence.text)
+    expect(thunderText).toContain('I hear thunder.')
+    expect(thunderText).toContain('I see lightning.')
   })
 })
